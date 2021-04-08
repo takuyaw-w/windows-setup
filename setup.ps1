@@ -4,7 +4,7 @@
  #    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
  #>
 
- Write-Host "Did you set the ExecutionPolicy to RemoteSigned?"
+Write-Host "Did you set the ExecutionPolicy to RemoteSigned?"
 $input = Read-Host "Enter (Y)es or (N)o?"
 switch ($input) {
     "Y" {
