@@ -59,6 +59,7 @@ $PKGS = @(
     "windows-terminal"
     "ripgrep"
     "fd"
+    "bat"
     "php7.4"
 )
 scoop install $PKGS
