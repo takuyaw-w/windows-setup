@@ -1,35 +1,28 @@
 <#
- # 事前に行っておくこと。
- # 1. ExecutionPolicyの変更
+ # Advance Preparation
+ # 1. Change ExecutionPolicy
  #    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+ # 2. Install scoop
+ #    Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
+ #    
  #>
 
-Write-Host "Did you set the ExecutionPolicy to RemoteSigned?"
-$input = Read-Host "Enter (Y)es or (N)o?"
-switch ($input) {
-    "Y" {
-        Write-Host "Start Setup." -ForegroundColor Green
-    }
-    "N" {
-        Write-Host "Stop Setup." -ForegroundColor Red
-        Write-Host "Execute the following command with administrative privileges." -ForegroundColor Red
-        Write-Host "'Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force'" -BackgroundColor Yellow -ForegroundColor Black
-        exit
-    }
-    Default {
-        Write-Host "invalid value." -ForegroundColor Red
-        exit
-    }
+$isScoopInstalled = Get-Command scoop;
+if ($isScoopInstalled) {
+    Write-Host "Start Setup."
+} else {
+    Write-Host "scoop is not installed." -ForegroundColor Red
+    Write-Host "Execute the following command with administrative privileges to install scoop." -ForegroundColor Red
+    Write-Host "Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')" -BackgroundColor Yellow -ForegroundColor Black
+    exit
 }
-
-# scoop install
-Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
 
 # scoop utility install
 $UTILS = @(
   "aria2"
   "lessmsi"
   "dark"
+  "innounp"
   "7zip"
   "git"
 )
@@ -38,15 +31,13 @@ scoop install $UTILS
 
 # bucket add
 scoop bucket add extras
-scoop bucket add php
 scoop update *
 
 # package install
 $PKGS = @(
-    "vcredist2019"
-    "android-studio"
     "vscode"
-    "nvm"
+    "winmerge"
+    # "nvm" -> volta
     "ghq"
     "peco"
     "jq"
@@ -60,7 +51,6 @@ $PKGS = @(
     "ripgrep"
     "fd"
     "bat"
-    "php7.4"
 )
 scoop install $PKGS
 
