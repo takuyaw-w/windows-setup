@@ -31,12 +31,14 @@ scoop install $UTILS
 
 # bucket add
 scoop bucket add extras
+scoop bucket add jp https://github.com/rkbk60/scoop-for-jp
 scoop update *
 
 # package install
 $PKGS = @(
     "vscode"
     "winmerge"
+    "vim-kaoriya"
     # "nvm" -> volta
     "ghq"
     "peco"
